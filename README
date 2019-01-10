@@ -1,0 +1,50 @@
+Main Components:
+	- PlayerList class that tracks all Players in the game.
+	
+	- Board class that tracks all the Spaces on the board in an array. There are 
+	  3 ways to build a Board:
+	  	- use the standard built-in Board with 40 spaces, Go, Jail, Free Parking,
+	  	  and Go To Jail in each of their corners, and Properties in all other 
+	  	  spaces,
+	  	- use a similar layout but adjusted to have any number of spaces,
+	  	- or create a Board based on a Space array parameter.
+	  	
+	- Player class that represents a player, including balance, location,
+	  and owned properties information. 
+	  	- moveLocation(): moves the Player a number of steps, collects $200 if it passes Go,
+	      and activates the Space it lands on's actionOnPlayer() method. 
+	      
+	- Space interface that represents a single square on the Board. Implemented by:
+		- Property class that represents each purchasable Space.
+			- actionOnPlayer(): Performs the following procedures:
+				1) If not owned, offer up for purchase.
+				2) Else if visitor is not the owner and not on mortgage, charge rent.
+				3) If owned by visitor or mortgaged, do nothing.
+			- A client can change the Property's owner with the buying Player's 
+		     purchaseUnownedProperty() method.
+		     
+		- GoToJail class that sends a Player to the Jail. A GoToJail must always
+		  be constructed with the location of its corresponding Jail as a parameter.
+			- actionOnPlayer(): sends the landing Player to Jail
+			
+		- NoEventSpace class that does nothing when a Player lands on it. There are
+		  3 types of this class, which only differ in their toString() representation.
+			- Go
+			- Jail, which is implemented as a Just Visiting Space that does nothing.
+			  It is the Player class's responsibility to perform the get out of jail
+			  operations. 
+			- Free Parking
+
+Notes:
+	- The specification was ambiguous as to what is done when a Player gets out of 
+	  Jail. I interpreted it as the Player not being able to re-roll the dice or 
+	  move the same turn that they get out of Jail. However, the specification was 
+	  clear in stating that there is no 3 turns in Jail rule. The very next turn a Player 
+	  is sent there, they MUST be freed.
+	- Ownership of properties is tracked by both the Property itself and by the Players.
+     
+	
+    	
+    
+    
+    
